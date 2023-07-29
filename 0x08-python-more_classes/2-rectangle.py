@@ -1,79 +1,91 @@
 #!/usr/bin/python3
+"""
+    2-rectangle: class Rectangle
+"""
 
 
 class Rectangle:
-    """Rectangle class."""
-
+    """
+        class Rectangle defines a rectangle
+        Attributes:
+            width (int): width of the rectangle
+            height (int): height of the rectangle
+    """
     def __init__(self, width=0, height=0):
-        """__init__ method.
-        Args:
-            width (int): integer width
-            height (int): integer height
         """
-        self.width = width
-        self.height = height
+            initialises the instances
+            Args:
+                width (int): width of the rectangle
+                height (int): height of the rectangle
+        """
+        if isinstance(width, int):
+            if width < 0:
+                raise ValueError("width must be >= 0")
+            self.__width = width
+        else:
+            raise TypeError("width must be an integer")
+
+        if isinstance(height, int):
+            if height < 0:
+                raise ValueError("height must be >= 0")
+            self.__height = height
+        else:
+            raise TypeError("height must be an integer")
 
     @property
     def width(self):
-        """width: returns width
-        Args:
-            width (int): integer width
-        Returns:
-            rectangle width
-        Raises:
-            TypeError: if width is not an integer
-            ValueError: if width is less than 0
+        """
+            getter function for private attribute width
+            Retruns: width
         """
         return self.__width
 
+    @width.setter
+    def width(self, value):
+        """
+            setter function for private attribute width
+            Args:
+                value (int): new width value
+        """
+        if not isinstance(value, int):
+            raise TypeError("width must be an integer")
+        if value < 0:
+            raise ValueError("width must be >= 0")
+        self.__width = value
+
     @property
     def height(self):
-        """height: returns height
-        Args:
-            height (int): integer height
-        Returns:
-            rectangle height
-        Raises:
-            TypeError: if height is not an integer
-            ValueError: if height is less than 0
+        """
+            getter function for private attribute height
+            Returns: height
         """
         return self.__height
 
-    @width.setter
-    def width(self, width):
-        if not isinstance(width, int):
-            raise TypeError("width must be an integer")
-        if width < 0:
-            raise ValueError("width must be >= 0")
-        self.__width = width
-
     @height.setter
-    def height(self, height):
-        if not isinstance(height, int):
+    def height(self, value):
+        """
+            setter function for the private attribute height
+            Args:
+                value (int): new height value
+        """
+        if not isinstance(value, int):
             raise TypeError("height must be an integer")
-        if height < 0:
+        if value < 0:
             raise ValueError("height must be >= 0")
-        self.__height = height
+        self.__height = value
 
     def area(self):
-        """Returns the area of the rectangle."""
-        return self.width * self.height
+        """
+            public instance method to calculate area of rectangle
+            Returns: area of rectangle
+        """
+        return self.__width * self.__height
 
     def perimeter(self):
-        """Returns the perimeter of the rectangle."""
-        if self.width == 0 or self.height == 0:
+        """
+            public instance method to calculate the perimeter of a rectangle
+            Returns: perimeter of rectangle
+        """
+        if self.__width is 0 or self.__height is 0:
             return 0
-        return self.width * 2 + self.height * 2
-
-
-if __name__ == '__main__':
-    my_rectangle = Rectangle(2, 4)
-    print("Area: {} - Perimeter: {}".format(
-        my_rectangle.area(), my_rectangle.perimeter()))
-
-    print("--")
-
-    my_rectangle.width = 10
-    my_rectangle.height = 3
-    print("Area: {} - Perimeter: {}".format(
-        my_rectangle.area(), my_rectangle.perimeter()))
+        return 2 * (self.__width + self.__height)
